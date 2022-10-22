@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "canvas-confetti": "^1.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.3",
+    "browserify": "^17.0.0",
+    "sass": "^1.55.0",
+    "typescript": "^4.8.4"
+  }
+}

@@ -1,0 +1,29 @@
+name: deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3 
+      - name: Setup Just
+        uses: extractions/setup-just@v1
+      - name: Install prerequisites
+        run: npm install
+      - name: Build Sass
+        run: just build-sass
+      - name: Build TypeScript
+        run: just build-ts
+      - name: Fix JS and CSS paths in 'index.html' to work with subpath on GitHub Pages
+        run: sed -i -e 's|/index.js|/volcano-safety-project/index.js|' -e 's|/style.css|/volcano-safety-project/style.css|' -e 's|/media/|/volcano-safety-project/media/|g' src/index.html
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src
