@@ -1,0 +1,53 @@
+@import url('https://meyerweb.com/eric/tools/css/reset/reset.css');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Mukta', sans-serif;
+    background-color: #FBFCFF;
+}
+
+.sky-section-text {
+    color: #f7f7f7;
+    background-color: #0ea8da;
+    width: 100%;
+    padding: 0.5em 0 0.2em;
+    text-align: center;
+    font-size: 3em;
+}
+
+.sky-section {
+    height: 100vh;
+    width: 100%;
+    background: url("/sky.jpeg");
+    background-size: 100% 100vh;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    margin-bottom: 5em;
+    // For some reason this fixes issues with overflow when the images go outside the normal viewport on the right (see the TypeScript code for when that occurs).
+    position: relative;
+
+    img {
+        position: absolute;
+        // We have 10 images, so use that here. Update if not accurate.
+        //
+        // Also subtract 20px for padding.
+        height: calc(calc(100vh / 10) - 30px);
+        width: auto;
+        left: -20em;
+    }
+}
+
+.padded-section {
+    padding: 0 3em;
+
+    h2 {
+        font-size: 2.4em;
+        text-decoration: underline;
+        margin-bottom: 0.4em;
+    }
+
+    p {
+        font-size: 1.4em;
+        line-height: 1.2em;
+    }
+}
