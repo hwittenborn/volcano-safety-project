@@ -1,14 +1,25 @@
-@import url('https://meyerweb.com/eric/tools/css/reset/reset.css');
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+@import url("https://meyerweb.com/eric/tools/css/reset/reset.css");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 body {
-    font-family: 'Mukta', sans-serif;
+    font-family: "Mukta", sans-serif;
     background-color: #FBFCFF;
+}
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    margin: 3em auto;
+    max-width: 30em;
 }
 
 .sky-section-text {
     color: #f7f7f7;
     background-color: #0ea8da;
+    text-decoration: underline;
     width: 100%;
     padding: 0.5em 0 0.2em;
     text-align: center;
@@ -18,7 +29,7 @@ body {
 .sky-section {
     height: 100vh;
     width: 100%;
-    background: url("/sky.jpeg");
+    background: url("media/images/sky.jpeg");
     background-size: 100% 100vh;
     background-repeat: no-repeat;
     overflow: hidden;
@@ -41,13 +52,90 @@ body {
     padding: 0 3em;
 
     h2 {
-        font-size: 2.4em;
+        color: rgb(71, 71, 71);
         text-decoration: underline;
-        margin-bottom: 0.4em;
+        font-size: 2em;
+        margin: 0.4em 0 0.1em;
     }
 
     p {
         font-size: 1.4em;
         line-height: 1.2em;
+    }
+}
+
+.faq {
+    display: grid;
+    grid-template-columns: auto auto;
+    max-width: 100em;
+    margin: 0 auto;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(-1deg); }
+    20% { transform: rotate(1deg); }
+    30% { transform: rotate(0deg); }
+    40% { transform: rotate(1deg); }
+    50% { transform: rotate(-1deg); }
+    60% { transform: rotate(0deg); }
+    70% { transform: rotate(-1deg); }
+    80% { transform: rotate(1deg); }
+    90% { transform: rotate(0deg); }
+    100% { transform: rotate(-1deg); }
+}
+
+.remember {
+    text-align: center;
+    margin: 0 auto 5em;
+    max-width: 20em;
+
+    img {
+        position: fixed;
+        width: 5em;
+        height: auto;
+        bottom: 3em;
+        right: 0;
+        opacity: 0;
+    }
+}
+
+.end {
+    position: fixed;
+    display: flex;
+    width: 0%;
+    height: 100%;
+    background-color: rgb(29, 29, 29);
+    z-index: 2;
+    top: 0;
+    left: 0;
+    transition: width 2s;
+
+    h2 {
+        color: white;
+        margin: auto;
+        white-space: nowrap;
+        line-height: 2em;
+        font-size: 5em;
+        text-align: center;
+        font-family: "Pacifico", cursive;
+        width: 0;
+        overflow: hidden;
+        transition: width 1s ease-out;
+    }
+}
+
+footer {
+    height: 3em;
+    background-color: rgb(21, 13, 6);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end;
+
+    p {
+        text-align: right;
+        color: white;
+        font-size: 1.4em;
+        margin: auto 0.75em;
     }
 }
