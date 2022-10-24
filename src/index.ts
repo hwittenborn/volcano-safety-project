@@ -74,12 +74,16 @@ function angryBirdsFlyingTime() {
 }
 
 // Confetti on all links.
-function confettiLinks() {
+// Also sound the 'NOPE' sound effect the first time a link is clicked.
+function fancyLinks() {
+    let links_time_map: Map<HTMLAnchorElement, number>  = new Map();
     let links: NodeListOf<HTMLAnchorElement> = document.querySelectorAll("a");
 
     for (let index = 0; index < links.length; index++) {
         let link = links[index];
-        link.addEventListener("mouseover", () => {
+        link.addEventListener("onclick", () => {
+            // If the link hasn't been clicked yet in the last second, show confetti. Otherwise run the link.
+            if links_time_map.get(link)
             (function frame() {
                 const end = Date.now() + (5);
 
@@ -124,46 +128,53 @@ function smileyZoomer() {
                 smiley.style.transitionProperty = "opacity width height translate top left margin-right";
 
                 smiley.style.opacity = "1";
+                smiley.style.animation = "shake 0.5s";
+                smiley.style.animationIterationCount = "infinite";
 
-                // Let the smiley gain its opacity and then have it for a bit, and then increase the size to fill the screen.
                 setTimeout(() => {
-                    smiley.style.transform = "translate(-50%, -50%)";
-                    smiley.style.top = "50%";
-                    smiley.style.left = "50%";
-                    smiley.style.marginRight = "50%";
+                    smiley.style.removeProperty("animation");
+                    smiley.style.removeProperty("animation-iteration-count");
 
-                    // Move to the center for the bit and then grow, shrink, and grow.
+                    // Let the smiley gain its opacity and then have it for a bit, and then increase the size to fill the screen.
                     setTimeout(() => {
-                        smiley.style.width = "175vw";
+                        smiley.style.transform = "translate(-50%, -50%)";
+                        smiley.style.top = "50%";
+                        smiley.style.left = "50%";
+                        smiley.style.marginRight = "50%";
 
+                        // Move to the center for the bit and then grow, shrink, and grow.
                         setTimeout(() => {
-                            smiley.style.width = "75vw";
+                            smiley.style.width = "175vw";
 
                             setTimeout(() => {
-                                smiley.style.width = "5000vw";
+                                smiley.style.width = "75vw";
 
-                                // Finally show the thank you message.
                                 setTimeout(() => {
-                                    let end: HTMLDivElement = document.querySelector(".end")!;
-                                    end.style.width = "100%";
+                                    smiley.style.width = "5000vw";
 
+                                    // Finally show the thank you message.
                                     setTimeout(() => {
-                                        let endHeader: HTMLHeadElement = document.querySelector(".end h2")!;
-                                        document.title = "Thank You";
-                                        endHeader.style.width = "4.75em";
-                                    }, 2500);
+                                        let end: HTMLDivElement = document.querySelector(".end")!;
+                                        end.style.width = "100%";
+
+                                        setTimeout(() => {
+                                            let endHeader: HTMLHeadElement = document.querySelector(".end h2")!;
+                                            document.title = "Thank You";
+                                            endHeader.style.width = "4.75em";
+                                        }, 2500);
+                                    }, 3000);
                                 }, 3000);
-                            }, 3000);
-                        }, 6000);
-                    }, 3000);
-                }, 6000);
-            }, 1000);
+                            }, 6000);
+                        }, 3000);
+                    }, 2000);
+                }, 3000);
+            }, 5000);
         }
     });
 }
 
 window.addEventListener("load", () => {
     angryBirdsFlyingTime();
-    confettiLinks();
+    fancyLinks();
     smileyZoomer();
 });
