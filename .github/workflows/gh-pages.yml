@@ -16,12 +16,12 @@ jobs:
         uses: extractions/setup-just@v1
       - name: Install prerequisites
         run: npm install
+      - name: Fix JS and CSS paths in 'index.html' to work with subpath on GitHub Pages
+        run: sed -i -e 's|/index.js|/volcano-safety-project/index.js|' -e 's|/style.css|/volcano-safety-project/style.css|' -e 's|/media/|/volcano-safety-project/media/|g' src/index.html src/index.ts
       - name: Build Sass
         run: just build-sass
       - name: Build TypeScript
         run: just build-ts
-      - name: Fix JS and CSS paths in 'index.html' to work with subpath on GitHub Pages
-        run: sed -i -e 's|/index.js|/volcano-safety-project/index.js|' -e 's|/style.css|/volcano-safety-project/style.css|' -e 's|/media/|/volcano-safety-project/media/|g' src/index.html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
