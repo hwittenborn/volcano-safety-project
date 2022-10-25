@@ -9,3 +9,6 @@ I also used the process of making this website to learn some new things, such as
 - Installing packages from NPM
 - How to use TypeScript
 - How to bundle NPM modules for use in a browser
+
+## Mobile support
+This website hasn't been designed much to be viewed on a mobile device. Please view on a desktop machine for the best viewing experience.
