@@ -65,7 +65,7 @@ function angryBirdsFlyingTime() {
 // Confetti on all links.
 // Also sound the 'NOPE' sound effect the first time a link is clicked.
 function fancyLinks() {
-    var nope_audio = new Audio("/media/audio/nope.mp3");
+    var nope_audio = new Audio("/volcano-safety-project/media/audio/nope.mp3");
     function playNope() {
         nope_audio.play();
     }
