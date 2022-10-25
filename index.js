@@ -157,7 +157,7 @@ function smileyZoomer() {
                                         var lavaCooker = document.querySelector(".cook-over-lava");
                                         lavaCooker.style.width = "100%";
                                         // Finally show the thank you message.
-                                        setTimeout(function () {
+                                        lavaCooker.addEventListener("click", function () {
                                             var end = document.querySelector(".end");
                                             end.style.width = "100%";
                                             setTimeout(function () {
@@ -165,7 +165,7 @@ function smileyZoomer() {
                                                 document.title = "Thank You";
                                                 endHeader.style.width = "4.75em";
                                             }, 2500);
-                                        }, 1000);
+                                        });
                                     }, 3000);
                                 }, 3000);
                             }, 6000);
