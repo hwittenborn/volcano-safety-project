@@ -63,30 +63,58 @@ function angryBirdsFlyingTime() {
     }
 }
 // Confetti on all links.
-function confettiLinks() {
+// Also sound the 'NOPE' sound effect the first time a link is clicked.
+function fancyLinks() {
+    var nope_audio = new Audio("/media/audio/nope.mp3");
+    function playNope() {
+        nope_audio.play();
+    }
+    var links_time_map = new Map();
     var links = document.querySelectorAll("a");
-    for (var index = 0; index < links.length; index++) {
+    var _loop_2 = function (index) {
         var link = links[index];
-        link.addEventListener("mouseover", function () {
-            (function frame() {
-                var end = Date.now() + (5);
-                confetti({
-                    particleCount: 2,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 }
+        console.log(link);
+        link.onclick = null;
+        link.addEventListener("click", function (ev) {
+            // If the link hasn't been clicked yet in the last second, say 'NOPE' and show confetti. Otherwise run the link.
+            var link_last_clicked = links_time_map.get(link);
+            // Show the nope effect.
+            var nope_div = document.querySelector(".nope");
+            nope_div.style.width = "100%";
+            nope_div.style.opacity = "0.6";
+            nope_div.addEventListener("transitionend", function () {
+                nope_div.style.opacity = "0";
+                nope_div.addEventListener("transitionend", function () {
+                    nope_div.style.width = "0%";
                 });
-                confetti({
-                    particleCount: 2,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 }
-                });
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
+            });
+            if (link_last_clicked === undefined || Date.now() - link_last_clicked > 1000) {
+                ev.preventDefault();
+                playNope();
+                links_time_map.set(link, Date.now());
+                (function frame() {
+                    var end = Date.now() + (5);
+                    confetti({
+                        particleCount: 2,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 }
+                    });
+                    confetti({
+                        particleCount: 2,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 }
+                    });
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
         });
+    };
+    for (var index = 0; index < links.length; index++) {
+        _loop_2(index);
     }
 }
 // Smiley face zoom effect.
@@ -106,40 +134,51 @@ function smileyZoomer() {
                 smiley.style.transitionDuration = "5s";
                 smiley.style.transitionProperty = "opacity width height translate top left margin-right";
                 smiley.style.opacity = "1";
-                // Let the smiley gain its opacity and then have it for a bit, and then increase the size to fill the screen.
+                smiley.style.animation = "shake 0.5s";
+                smiley.style.animationIterationCount = "infinite";
                 setTimeout(function () {
-                    smiley.style.transform = "translate(-50%, -50%)";
-                    smiley.style.top = "50%";
-                    smiley.style.left = "50%";
-                    smiley.style.marginRight = "50%";
-                    // Move to the center for the bit and then grow, shrink, and grow.
+                    smiley.style.removeProperty("animation");
+                    smiley.style.removeProperty("animation-iteration-count");
+                    // Let the smiley gain its opacity and then have it for a bit, and then increase the size to fill the screen.
                     setTimeout(function () {
-                        smiley.style.width = "175vw";
+                        smiley.style.transform = "translate(-50%, -50%)";
+                        smiley.style.top = "50%";
+                        smiley.style.left = "50%";
+                        smiley.style.marginRight = "50%";
+                        // Move to the center for the bit and then grow, shrink, and grow.
                         setTimeout(function () {
-                            smiley.style.width = "75vw";
+                            smiley.style.width = "175vw";
                             setTimeout(function () {
-                                smiley.style.width = "5000vw";
-                                // Finally show the thank you message.
+                                smiley.style.width = "75vw";
                                 setTimeout(function () {
-                                    var end = document.querySelector(".end");
-                                    end.style.width = "100%";
+                                    smiley.style.width = "5000vw";
+                                    // Show the lava cooking for a brief second for the funny moments.
                                     setTimeout(function () {
-                                        var endHeader = document.querySelector(".end h2");
-                                        document.title = "Thank You";
-                                        endHeader.style.width = "4.75em";
-                                    }, 2500);
+                                        var lavaCooker = document.querySelector(".cook-over-lava");
+                                        lavaCooker.style.width = "100%";
+                                        // Finally show the thank you message.
+                                        setTimeout(function () {
+                                            var end = document.querySelector(".end");
+                                            end.style.width = "100%";
+                                            setTimeout(function () {
+                                                var endHeader = document.querySelector(".end h2");
+                                                document.title = "Thank You";
+                                                endHeader.style.width = "4.75em";
+                                            }, 2500);
+                                        }, 1000);
+                                    }, 3000);
                                 }, 3000);
-                            }, 3000);
-                        }, 6000);
-                    }, 3000);
-                }, 6000);
-            }, 1000);
+                            }, 6000);
+                        }, 3000);
+                    }, 2000);
+                }, 3000);
+            }, 5000);
         }
     });
 }
 window.addEventListener("load", function () {
     angryBirdsFlyingTime();
-    confettiLinks();
+    fancyLinks();
     smileyZoomer();
 });
 
