@@ -57,6 +57,7 @@ hr {
         text-decoration: underline;
         font-size: 2em;
         margin: 0.4em 0 0.1em;
+        line-height: 1.2em;
     }
 
     p {
@@ -70,6 +71,10 @@ hr {
     grid-template-columns: auto auto;
     max-width: 100em;
     margin: 0 auto;
+
+    @media (max-width: 55em) {
+        grid-template-columns: auto;
+    }
 }
 
 @keyframes shake {
