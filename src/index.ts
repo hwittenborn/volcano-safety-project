@@ -1,5 +1,27 @@
 const confetti = require("canvas-confetti");
 
+function doConfetti() {
+    (function frame() {
+        const end = Date.now() + (5);
+
+        confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+        });
+        confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
 // Graciously stolen from https://stackoverflow.com/a/24152886/16182112.
 function randomNumber(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -111,27 +133,7 @@ function fancyLinks() {
                 ev.preventDefault();
                 playNope();
                 links_time_map.set(link, Date.now());
-
-                (function frame() {
-                    const end = Date.now() + (5);
-
-                    confetti({
-                        particleCount: 2,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0 },
-                    });
-                    confetti({
-                        particleCount: 2,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 1 },
-                    });
-
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
-                    }
-                }());
+                doConfetti();
             }
         })
     }
@@ -166,6 +168,7 @@ function smileyZoomer() {
 
                     // Let the smiley gain its opacity and then have it for a bit, and then increase the size to fill the screen.
                     setTimeout(() => {
+                        (new Audio("/media/audio/yeet.mp3")).play();
                         smiley.style.transform = "translate(-50%, -50%)";
                         smiley.style.top = "50%";
                         smiley.style.left = "50%";
@@ -176,9 +179,11 @@ function smileyZoomer() {
                             smiley.style.width = "175vw";
 
                             setTimeout(() => {
+                                (new Audio("/media/audio/pop.mp3")).play();
                                 smiley.style.width = "75vw";
 
                                 setTimeout(() => {
+                                    (new Audio("/media/audio/yay.mp3")).play();
                                     smiley.style.width = "5000vw";
 
                                     // Show the lava cooking for a brief second for the funny moments.
@@ -188,6 +193,7 @@ function smileyZoomer() {
                                         
                                         // Finally show the thank you message.
                                         lavaCooker.addEventListener("click", () => {
+                                            doConfetti();
                                             let end: HTMLDivElement = document.querySelector(".end")!;
                                             end.style.width = "100%";
 
