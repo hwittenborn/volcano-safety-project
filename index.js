@@ -1,5 +1,25 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var confetti = require("canvas-confetti");
+function doConfetti() {
+    (function frame() {
+        var end = Date.now() + (5);
+        confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
 // Graciously stolen from https://stackoverflow.com/a/24152886/16182112.
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -92,24 +112,7 @@ function fancyLinks() {
                 ev.preventDefault();
                 playNope();
                 links_time_map.set(link, Date.now());
-                (function frame() {
-                    var end = Date.now() + (5);
-                    confetti({
-                        particleCount: 2,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0 }
-                    });
-                    confetti({
-                        particleCount: 2,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 1 }
-                    });
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
-                    }
-                }());
+                doConfetti();
             }
         });
     };
@@ -141,6 +144,7 @@ function smileyZoomer() {
                     smiley.style.removeProperty("animation-iteration-count");
                     // Let the smiley gain its opacity and then have it for a bit, and then increase the size to fill the screen.
                     setTimeout(function () {
+                        (new Audio("/volcano-safety-project/media/audio/yeet.mp3")).play();
                         smiley.style.transform = "translate(-50%, -50%)";
                         smiley.style.top = "50%";
                         smiley.style.left = "50%";
@@ -149,8 +153,10 @@ function smileyZoomer() {
                         setTimeout(function () {
                             smiley.style.width = "175vw";
                             setTimeout(function () {
+                                (new Audio("/volcano-safety-project/media/audio/pop.mp3")).play();
                                 smiley.style.width = "75vw";
                                 setTimeout(function () {
+                                    (new Audio("/volcano-safety-project/media/audio/yay.mp3")).play();
                                     smiley.style.width = "5000vw";
                                     // Show the lava cooking for a brief second for the funny moments.
                                     setTimeout(function () {
@@ -158,6 +164,7 @@ function smileyZoomer() {
                                         lavaCooker.style.width = "100%";
                                         // Finally show the thank you message.
                                         lavaCooker.addEventListener("click", function () {
+                                            doConfetti();
                                             var end = document.querySelector(".end");
                                             end.style.width = "100%";
                                             setTimeout(function () {
