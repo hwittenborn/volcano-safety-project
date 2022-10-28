@@ -106,7 +106,7 @@ hr {
     }
 }
 
-.end, .nope, .cook-over-lava {
+.end, .nope, .cook-over-lava, .hide-webpage {
     position: fixed;
     display: flex;
     width: 0%;
@@ -157,6 +157,13 @@ hr {
     * {
         margin: 0 auto !important;
     }
+}
+
+.hide-webpage {
+    width: 100%;
+    background-color: white;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
 }
 
 footer {
