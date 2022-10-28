@@ -144,7 +144,6 @@ function smileyZoomer() {
                     smiley.style.removeProperty("animation-iteration-count");
                     // Let the smiley gain its opacity and then have it for a bit, and then increase the size to fill the screen.
                     setTimeout(function () {
-                        (new Audio("/volcano-safety-project/media/audio/yeet.mp3")).play();
                         smiley.style.transform = "translate(-50%, -50%)";
                         smiley.style.top = "50%";
                         smiley.style.left = "50%";
@@ -152,11 +151,11 @@ function smileyZoomer() {
                         // Move to the center for the bit and then grow, shrink, and grow.
                         setTimeout(function () {
                             smiley.style.width = "175vw";
+                            (new Audio("/volcano-safety-project/media/audio/pop.mp3")).play();
                             setTimeout(function () {
-                                (new Audio("/volcano-safety-project/media/audio/pop.mp3")).play();
                                 smiley.style.width = "75vw";
+                                (new Audio("/volcano-safety-project/media/audio/yay.mp3")).play();
                                 setTimeout(function () {
-                                    (new Audio("/volcano-safety-project/media/audio/yay.mp3")).play();
                                     smiley.style.width = "5000vw";
                                     // Show the lava cooking for a brief second for the funny moments.
                                     setTimeout(function () {
@@ -173,7 +172,7 @@ function smileyZoomer() {
                                                 endHeader.style.width = "4.75em";
                                             }, 2500);
                                         });
-                                    }, 3000);
+                                    }, 1000);
                                 }, 3000);
                             }, 6000);
                         }, 3000);
@@ -183,10 +182,19 @@ function smileyZoomer() {
         }
     });
 }
+// Show the webpage once all assets have loaded.
+function showDom() {
+    var cover = document.querySelector(".hide-webpage");
+    cover.style.opacity = "0";
+    cover.addEventListener("transitionend", function () {
+        cover.style.width = "0%";
+    });
+}
 window.addEventListener("load", function () {
     angryBirdsFlyingTime();
     fancyLinks();
     smileyZoomer();
+    showDom();
 });
 
 },{"canvas-confetti":2}],2:[function(require,module,exports){
